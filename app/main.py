@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-
+from fastapi.middleware.cors import CORSMiddleware
 
 from routes.create_product import router as create_product_router
 from routes.get_product import router as get_product_router
@@ -9,9 +9,19 @@ from routes.delete_product import router as delete_product_router
 
 
 
-
 load_dotenv()
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"], 
+    allow_headers=["*"],  
+)
+
+
 
 
 app.include_router(create_product_router)
